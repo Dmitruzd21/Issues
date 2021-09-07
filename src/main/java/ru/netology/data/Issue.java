@@ -12,17 +12,17 @@ public class Issue implements List<Issue> {
     private boolean openStatus;
     private String text;
     private int howManyDaysAgoWasItCreated;
-    private Set <String> tags = new HashSet<String> ();
+    private HashSet<String> tags = new HashSet<String>();
 
-    public Set<String> getTags() {
+    public HashSet<String> getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(HashSet<String> tags) {
         this.tags = tags;
     }
 
-    public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, Set<String> tags) {
+    public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, HashSet<String> tags) {
         this.id = id;
         this.author = author;
         this.assignee = assignee;

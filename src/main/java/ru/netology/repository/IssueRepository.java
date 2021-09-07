@@ -50,7 +50,7 @@ public class IssueRepository {
     }
 
     // 5. Количество элементов коллекции
-    public int size () {
+    public int size() {
         return issues.size();
     }
 

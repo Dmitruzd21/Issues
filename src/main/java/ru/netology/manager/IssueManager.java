@@ -3,6 +3,8 @@ package ru.netology.manager;
 import ru.netology.data.Issue;
 import ru.netology.repository.IssueRepository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -85,11 +87,11 @@ public class IssueManager {
     }
 
     // Фильтрация по Tag
-    public List<Issue> searchByTags(Set<String> searchTags) {
-        List<Issue> filteredIssues = new List<Issue>();
+    public Issue[] searchByTags(HashSet<String> searchTags) {
+        ArrayList<Issue> filteredIssues = new ArrayList<Issue>();
 
         for (Issue issue : repository.getAll()) {
-            Set<String> issueTags = issue.getTags();
+            HashSet<String> issueTags = issue.getTags();
 
             for (String searchTag : searchTags) {
                 if (issueTags.contains(searchTags)) {
@@ -97,11 +99,12 @@ public class IssueManager {
                     continue;
                 }
             }
-            return filteredIssues;
         }
+        return filteredIssues.toArray(new Issue[0]);
     }
 
-        // Фильтрация по Assignee (на кого назначено)
+
+    // Фильтрация по Assignee (на кого назначено)
     public Issue[] searchByAssignee(String assignee) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {
@@ -116,7 +119,7 @@ public class IssueManager {
         return result;
     }
 
-    public boolean matches4(Issue issue,String assignee) {
+    public boolean matches4(Issue issue, String assignee) {
         if (issue.getAssignee().contains(assignee)) {
             return true;
         }

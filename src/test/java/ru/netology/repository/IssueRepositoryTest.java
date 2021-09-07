@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class IssueRepositoryTest {
     IssueRepository repository = new IssueRepository();
     Issue issue1 = new Issue(1, "Иван", "Катя", "Баг", true, "шшш", 17, new HashSet<String>(Arrays.asList("bug")));
-    Issue issue2 = new Issue(2, "Иван", "Катя", "Баг", false, "шшш", 14, new HashSet<String>(Arrays.asList("enhancement")));
-    Issue issue3 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("helpWanted")));
+    Issue issue2 = new Issue(2, "Иван", "Евгений", "Баг", false, "шшш", 14, new HashSet<String>(Arrays.asList("enhancement")));
+    Issue issue3 = new Issue(3, "Алексей", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("helpWanted","bug")));
     Issue issue4 = new Issue(4, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("question")));
-    Issue issue5 = new Issue(5, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation")));
-    Issue issue6 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("bug")));
+    Issue issue5 = new Issue(5, "Тамара", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation","bug")));
+    Issue issue6 = new Issue(3, "Иван", "Константин", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("bug")));
 
     // Проверка добавления Issue
     @Test
