@@ -3,18 +3,20 @@ package ru.netology.repository;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.Issue;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class IssueRepositoryTest {
     IssueRepository repository = new IssueRepository();
-    Issue issue1 = new Issue(1, "Иван", "Катя", "Баг", true, "шшш", 17, true, false, false, false, false);
-    Issue issue2 = new Issue(2, "Иван", "Катя", "Баг", false, "шшш", 14, true, false, false, false, false);
-    Issue issue3 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, true, false, false, false, false);
-    Issue issue4 = new Issue(4, "Иван", "Катя", "Баг", true, "шшш", 20, true, false, false, false, false);
-    Issue issue5 = new Issue(5, "Иван", "Катя", "Баг", true, "шшш", 20, true, false, false, false, false);
-    Issue issue6 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, true, false, false, false, false);
+    Issue issue1 = new Issue(1, "Иван", "Катя", "Баг", true, "шшш", 17, new HashSet<String>(Arrays.asList("bug")));
+    Issue issue2 = new Issue(2, "Иван", "Катя", "Баг", false, "шшш", 14, new HashSet<String>(Arrays.asList("enhancement")));
+    Issue issue3 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("helpWanted")));
+    Issue issue4 = new Issue(4, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("question")));
+    Issue issue5 = new Issue(5, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation")));
+    Issue issue6 = new Issue(3, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("bug")));
 
     // Проверка добавления Issue
     @Test

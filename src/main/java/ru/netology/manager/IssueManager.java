@@ -4,6 +4,7 @@ import ru.netology.data.Issue;
 import ru.netology.repository.IssueRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public class IssueManager {
     private IssueRepository repository;
@@ -76,17 +77,31 @@ public class IssueManager {
         return result;
     }
 
-    public boolean matches3(Issue issue,String author) {
+    public boolean matches3(Issue issue, String author) {
         if (issue.getAuthor().contains(author)) {
             return true;
         }
         return false;
     }
 
-    // Фильтрация по Label
-    // TODO
+    // Фильтрация по Tag
+    public List<Issue> searchByTags(Set<String> searchTags) {
+        List<Issue> filteredIssues = new List<Issue>();
 
-    // Фильтрация по Assignee (на кого назначено)
+        for (Issue issue : repository.getAll()) {
+            Set<String> issueTags = issue.getTags();
+
+            for (String searchTag : searchTags) {
+                if (issueTags.contains(searchTags)) {
+                    filteredIssues.add(issue);
+                    continue;
+                }
+            }
+            return filteredIssues;
+        }
+    }
+
+        // Фильтрация по Assignee (на кого назначено)
     public Issue[] searchByAssignee(String assignee) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {

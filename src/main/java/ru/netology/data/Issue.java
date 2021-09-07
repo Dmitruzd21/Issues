@@ -12,14 +12,17 @@ public class Issue implements List<Issue> {
     private boolean openStatus;
     private String text;
     private int howManyDaysAgoWasItCreated;
-    private boolean bugLabel;
-    private boolean enhancementLabel;
-    private boolean helpWantedLabel;
-    private boolean questionLabel;
-    private boolean documentationLabel;
+    private Set <String> tags = new HashSet<String> ();
 
+    public Set<String> getTags() {
+        return tags;
+    }
 
-    public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, boolean bugLabel, boolean enhancementLabel, boolean helpWantedLabel, boolean questionLabel, boolean documentationLabel) {
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, Set<String> tags) {
         this.id = id;
         this.author = author;
         this.assignee = assignee;
@@ -27,11 +30,7 @@ public class Issue implements List<Issue> {
         this.openStatus = openStatus;
         this.text = text;
         this.howManyDaysAgoWasItCreated = howManyDaysAgoWasItCreated;
-        this.bugLabel = bugLabel;
-        this.enhancementLabel = enhancementLabel;
-        this.helpWantedLabel = helpWantedLabel;
-        this.questionLabel = questionLabel;
-        this.documentationLabel = documentationLabel;
+        this.tags = tags;
     }
 
     public int getId() {
@@ -88,46 +87,6 @@ public class Issue implements List<Issue> {
 
     public void setHowManyDaysAgoWasItCreated(int howManyDaysAgoWasItCreated) {
         this.howManyDaysAgoWasItCreated = howManyDaysAgoWasItCreated;
-    }
-
-    public boolean isBugLabel() {
-        return bugLabel;
-    }
-
-    public void setBugLabel(boolean bugLabel) {
-        this.bugLabel = bugLabel;
-    }
-
-    public boolean isEnhancementLabel() {
-        return enhancementLabel;
-    }
-
-    public void setEnhancementLabel(boolean enhancementLabel) {
-        this.enhancementLabel = enhancementLabel;
-    }
-
-    public boolean isHelpWantedLabel() {
-        return helpWantedLabel;
-    }
-
-    public void setHelpWantedLabel(boolean helpWantedLabel) {
-        this.helpWantedLabel = helpWantedLabel;
-    }
-
-    public boolean isQuestionLabel() {
-        return questionLabel;
-    }
-
-    public void setQuestionLabel(boolean questionLabel) {
-        this.questionLabel = questionLabel;
-    }
-
-    public boolean isDocumentationLabel() {
-        return documentationLabel;
-    }
-
-    public void setDocumentationLabel(boolean documentationLabel) {
-        this.documentationLabel = documentationLabel;
     }
 
     @Override
