@@ -12,9 +12,6 @@ public class IssueManager {
         this.repository = repository;
     }
 
-    public IssueManager() {
-    }
-
     // МЕТОДЫ СОБСТВЕННО МЕНЕДЖЕРА
 
     // 1. Отображение списка открытых Issue
@@ -127,7 +124,7 @@ public class IssueManager {
         return false;
     }
 
-    //Закрытие Issue по id
+    //Закрытие Issue по id (выбрасывает исключение, если введен несуществующий id)
     public void closeIssueById(int id) {
         Issue closedIssues = null;
         for (Issue issue : repository.getAll()) {
@@ -148,7 +145,7 @@ public class IssueManager {
 
     }
 
-    // Открытие Issue по id
+    // Открытие Issue по id (выбрасывает исключение, если введен несуществующий id)
     public void openIssueById(int id) {
         Issue closedIssues = null;
         for (Issue issue : repository.getAll()) {
