@@ -130,19 +130,12 @@ public class IssueManager {
         for (Issue issue : repository.getAll()) {
             if (issue.getId() == id) {
                 closedIssues = issue;
+                issue.setOpenStatus(false);
             }
         }
         if (closedIssues == null) {
             throw new RuntimeException("Issue с указанным ID не существует");
-        } else {
-            for (Issue issue : repository.getAll()) {
-                if (issue.getId() == id) {
-                    issue.setOpenStatus(false);
-                    break;
-                }
-            }
         }
-
     }
 
     // Открытие Issue по id (выбрасывает исключение, если введен несуществующий id)
@@ -151,18 +144,11 @@ public class IssueManager {
         for (Issue issue : repository.getAll()) {
             if (issue.getId() == id) {
                 closedIssues = issue;
+                issue.setOpenStatus(true);
             }
         }
         if (closedIssues == null) {
             throw new RuntimeException("Issue c указанным ID не существует");
-        } else {
-            for (Issue issue : repository.getAll()) {
-                if (issue.getId() == id) {
-                    issue.setOpenStatus(true);
-                    break;
-                }
-
-            }
         }
     }
 
