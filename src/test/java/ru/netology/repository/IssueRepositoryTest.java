@@ -1,5 +1,6 @@
 package ru.netology.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.Issue;
 
@@ -18,13 +19,20 @@ class IssueRepositoryTest {
     Issue issue5 = new Issue(5, "Тамара", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation", "bug")));
     Issue issue6 = new Issue(3, "Иван", "Константин", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("bug")));
 
-    // 1. Проверка добавления Issue
-    @Test
-    void shouldAdd() {
+    @BeforeEach
+    public void setUp() {
         repository.add(issue1);
         repository.add(issue2);
         repository.add(issue3);
-        Issue[] expected = new Issue[]{issue1, issue2, issue3};
+        repository.add(issue4);
+        repository.add(issue5);
+    }
+
+    // 1. Проверка добавления Issue
+    @Test
+    void shouldAdd() {
+        repository.add(issue6);
+        Issue[] expected = new Issue[]{issue1, issue2, issue3, issue4, issue5, issue6};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -32,12 +40,8 @@ class IssueRepositoryTest {
     // 2. Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс в пределах суммарного количества элементов коллекции
     @Test
     void shouldSetIfIndexWithinSize() throws Exception {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.set(1, issue5);
-        Issue[] expected = new Issue[]{issue1, issue5, issue3, issue4};
+        repository.set(1, issue6);
+        Issue[] expected = new Issue[]{issue1, issue6, issue3, issue4, issue5};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -45,23 +49,16 @@ class IssueRepositoryTest {
     // 3. Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс за пределами суммарного количества элементов коллекции
     @Test
     void shouldSetIfIndexOverSize() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
         assertThrows(RuntimeException.class, () -> {
-            repository.set(7, issue5);
+            repository.set(9, issue5);
         });
     }
 
     // 4. Проверка удаления элемента, если такой имеется
     @Test
     void shouldRemoveIfIssueExist() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
         repository.remove(issue2);
-        Issue[] expected = new Issue[]{issue1, issue3};
+        Issue[] expected = new Issue[]{issue1, issue3, issue4, issue5};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -69,11 +66,8 @@ class IssueRepositoryTest {
     // 5. Проверка удаления элемента, если такой НЕ имеется
     @Test
     void shouldRemoveIfIssueDoesntExist() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.remove(issue4);
-        Issue[] expected = new Issue[]{issue1, issue2, issue3};
+        repository.remove(issue6);
+        Issue[] expected = new Issue[]{issue1, issue2, issue3, issue4, issue5};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -81,12 +75,8 @@ class IssueRepositoryTest {
     // 6. Проеверка удаления объекта по ID, если такого объекта нет
     @Test
     void shouldRemoveByIdIfIssueWithIdDoesntExist() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.removeById(5);
-        Issue[] expected = new Issue[]{issue1, issue2, issue3, issue4};
+        repository.removeById(9);
+        Issue[] expected = new Issue[]{issue1, issue2, issue3, issue4, issue5};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -94,12 +84,8 @@ class IssueRepositoryTest {
     // 7. Проверка удаления объекта по ID,если есть 1 объект с искоемым ID
     @Test
     void shouldRemoveByIdIfOneIssueWithIdExist() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
         repository.removeById(3);
-        Issue[] expected = new Issue[]{issue1, issue2, issue4};
+        Issue[] expected = new Issue[]{issue1, issue2, issue4, issue5};
         Issue[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -107,12 +93,7 @@ class IssueRepositoryTest {
     // 8. Проверка удаления объекта по ID, если есть 2 объекта с искоемым ID
     @Test
     void shouldRemoveByIdIfTwoIssuesWithIdExist() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.add(issue5);
-        repository.add(issue3);
+        repository.add(issue6);
         repository.removeById(3);
         Issue[] expected = new Issue[]{issue1, issue2, issue4, issue5};
         Issue[] actual = repository.getAll();
@@ -122,11 +103,6 @@ class IssueRepositoryTest {
     // 9. Проверка очистки коллекции
     @Test
     void shouldClear() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.add(issue5);
         repository.clear();
         Issue[] expected = new Issue[]{};
         Issue[] actual = repository.getAll();
@@ -136,11 +112,6 @@ class IssueRepositoryTest {
     // 10. Проверка длины коллекции
     @Test
     void shouldSize() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.add(issue5);
         int expected = 5;
         int actual = repository.size();
         assertEquals(expected, actual);
@@ -149,11 +120,6 @@ class IssueRepositoryTest {
     // 11. Проверка поиска по ID
     @Test
     void shouldFindById() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.add(issue5);
         Issue[] expected = new Issue[]{issue3};
         Issue[] actual = repository.findById(3);
         assertArrayEquals(expected, actual);

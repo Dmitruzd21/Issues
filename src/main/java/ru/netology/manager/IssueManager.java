@@ -100,7 +100,6 @@ public class IssueManager {
         return filteredIssues.toArray(new Issue[filteredIssues.size()]);
     }
 
-
     // Фильтрация по Assignee (на кого назначено)
     public Issue[] searchByAssignee(String assignee, Comparator<Issue> comparator) {
         Issue[] result = new Issue[0];

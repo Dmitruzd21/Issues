@@ -176,7 +176,6 @@ class IssueManagerTest {
         assertArrayEquals(expected, actual);
     }
 
-
     // 16. Проверка фильтрации по Тегам (много Issue с искоемым тегом)
     @Test
     void shouldSearchByTagsIfManyIssuesWithTagExist() {
@@ -298,5 +297,4 @@ class IssueManagerTest {
         Issue[] actual = manager.findById(3);
         assertArrayEquals(expected, actual);
     }
-
 }

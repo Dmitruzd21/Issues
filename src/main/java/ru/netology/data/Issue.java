@@ -15,7 +15,6 @@ public class Issue implements List<Issue> {
     private HashSet<String> tags = new HashSet<String>();
 
 
-
     public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, HashSet<String> tags) {
         this.id = id;
         this.author = author;
@@ -26,6 +25,7 @@ public class Issue implements List<Issue> {
         this.howManyDaysAgoWasItCreated = howManyDaysAgoWasItCreated;
         this.tags = tags;
     }
+
     public HashSet<String> getTags() {
         return tags;
     }
