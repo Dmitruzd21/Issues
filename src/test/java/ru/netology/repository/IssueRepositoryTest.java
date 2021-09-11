@@ -13,12 +13,12 @@ class IssueRepositoryTest {
     IssueRepository repository = new IssueRepository();
     Issue issue1 = new Issue(1, "Иван", "Катя", "Баг", true, "шшш", 17, new HashSet<String>(Arrays.asList("bug")));
     Issue issue2 = new Issue(2, "Иван", "Евгений", "Баг", false, "шшш", 14, new HashSet<String>(Arrays.asList("enhancement")));
-    Issue issue3 = new Issue(3, "Алексей", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("helpWanted","bug")));
+    Issue issue3 = new Issue(3, "Алексей", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("helpWanted", "bug")));
     Issue issue4 = new Issue(4, "Иван", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("question")));
-    Issue issue5 = new Issue(5, "Тамара", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation","bug")));
+    Issue issue5 = new Issue(5, "Тамара", "Катя", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("documentation", "bug")));
     Issue issue6 = new Issue(3, "Иван", "Константин", "Баг", true, "шшш", 20, new HashSet<String>(Arrays.asList("bug")));
 
-    // Проверка добавления Issue
+    // 1. Проверка добавления Issue
     @Test
     void shouldAdd() {
         repository.add(issue1);
@@ -29,21 +29,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка возвращения элемента, соответсвующего индексу
-    @Test
-    void shouldGet() {
-        repository.add(issue1);
-        repository.add(issue2);
-        repository.add(issue3);
-        repository.add(issue4);
-        repository.add(issue5);
-        Issue[] expected = new Issue[]{issue2};
-        Issue[] actual = repository.get(1);
-        assertArrayEquals(expected, actual);
-        // TODO
-    }
-
-    // Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс в пределах суммарного количества элементов коллекции
+    // 2. Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс в пределах суммарного количества элементов коллекции
     @Test
     void shouldSetIfIndexWithinSize() throws Exception {
         repository.add(issue1);
@@ -56,7 +42,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс за пределами суммарного количества элементов коллекции
+    // 3. Проверка редактирования (замена Issue c указанным индексом, на другой Issue) - индекс за пределами суммарного количества элементов коллекции
     @Test
     void shouldSetIfIndexOverSize() {
         repository.add(issue1);
@@ -68,7 +54,7 @@ class IssueRepositoryTest {
         });
     }
 
-    // Проверка удаления элемента, если такой имеется
+    // 4. Проверка удаления элемента, если такой имеется
     @Test
     void shouldRemoveIfIssueExist() {
         repository.add(issue1);
@@ -80,7 +66,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка удаления элемента, если такой НЕ имеется
+    // 5. Проверка удаления элемента, если такой НЕ имеется
     @Test
     void shouldRemoveIfIssueDoesntExist() {
         repository.add(issue1);
@@ -92,7 +78,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проеверка удаления объекта по ID, если такого объекта нет
+    // 6. Проеверка удаления объекта по ID, если такого объекта нет
     @Test
     void shouldRemoveByIdIfIssueWithIdDoesntExist() {
         repository.add(issue1);
@@ -105,7 +91,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка удаления объекта по ID,если есть 1 объект с искоемым ID
+    // 7. Проверка удаления объекта по ID,если есть 1 объект с искоемым ID
     @Test
     void shouldRemoveByIdIfOneIssueWithIdExist() {
         repository.add(issue1);
@@ -118,7 +104,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка удаления объекта по ID, если есть 2 объекта с искоемым ID
+    // 8. Проверка удаления объекта по ID, если есть 2 объекта с искоемым ID
     @Test
     void shouldRemoveByIdIfTwoIssuesWithIdExist() {
         repository.add(issue1);
@@ -133,7 +119,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка очистки коллекции
+    // 9. Проверка очистки коллекции
     @Test
     void shouldClear() {
         repository.add(issue1);
@@ -147,7 +133,7 @@ class IssueRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Проверка длины коллекции
+    // 10. Проверка длины коллекции
     @Test
     void shouldSize() {
         repository.add(issue1);
@@ -160,7 +146,7 @@ class IssueRepositoryTest {
         assertEquals(expected, actual);
     }
 
-    // Проверка поиска по ID
+    // 11. Проверка поиска по ID
     @Test
     void shouldFindById() {
         repository.add(issue1);

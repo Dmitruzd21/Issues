@@ -14,13 +14,7 @@ public class Issue implements List<Issue> {
     private int howManyDaysAgoWasItCreated;
     private HashSet<String> tags = new HashSet<String>();
 
-    public HashSet<String> getTags() {
-        return tags;
-    }
 
-    public void setTags(HashSet<String> tags) {
-        this.tags = tags;
-    }
 
     public Issue(int id, String author, String assignee, String topic, boolean openStatus, String text, int howManyDaysAgoWasItCreated, HashSet<String> tags) {
         this.id = id;
@@ -30,6 +24,13 @@ public class Issue implements List<Issue> {
         this.openStatus = openStatus;
         this.text = text;
         this.howManyDaysAgoWasItCreated = howManyDaysAgoWasItCreated;
+        this.tags = tags;
+    }
+    public HashSet<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(HashSet<String> tags) {
         this.tags = tags;
     }
 
@@ -88,6 +89,7 @@ public class Issue implements List<Issue> {
     public void setHowManyDaysAgoWasItCreated(int howManyDaysAgoWasItCreated) {
         this.howManyDaysAgoWasItCreated = howManyDaysAgoWasItCreated;
     }
+
 
     @Override
     public int size() {

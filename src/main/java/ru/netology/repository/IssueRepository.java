@@ -14,15 +14,9 @@ public class IssueRepository {
         return issues.add(item);
     }
 
-    // 2.Просмотр - cRud
-    // 2.1. Возвращает элемент, соответсвующий указанному индексу
-    public Issue[] get(int index) {
-        return issues.get(index).toArray(new Issue[0]);
-    }
-
-    //2.2. Возвращает все элементы
+    // 2.Просмотр - cRud - Возвращает все элементы
     public Issue[] getAll() {
-        return issues.toArray(new Issue[0]);
+        return issues.toArray(new Issue[size()]);
     }
 
     // 3.Редактирование - crUd

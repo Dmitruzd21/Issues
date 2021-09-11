@@ -3,10 +3,7 @@ package ru.netology.manager;
 import ru.netology.data.Issue;
 import ru.netology.repository.IssueRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class IssueManager {
     private IssueRepository repository;
@@ -21,7 +18,7 @@ public class IssueManager {
     // МЕТОДЫ СОБСТВЕННО МЕНЕДЖЕРА
 
     // 1. Отображение списка открытых Issue
-    public Issue[] searchOpenIssues() {
+    public Issue[] searchOpenIssues(Comparator<Issue> comparator) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {
             if (matches(issue)) {
@@ -32,6 +29,7 @@ public class IssueManager {
                 result = tmp;
             }
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 
@@ -43,7 +41,7 @@ public class IssueManager {
     }
 
     // 2. Отображение списка закрытых Issue
-    public Issue[] searchClosedIssues() {
+    public Issue[] searchClosedIssues(Comparator<Issue> comparator) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {
             if (matches2(issue)) {
@@ -54,6 +52,7 @@ public class IssueManager {
                 result = tmp;
             }
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 
@@ -65,7 +64,7 @@ public class IssueManager {
     }
 
     // Фильтрация по имени автора
-    public Issue[] searchByAuthor(String author) {
+    public Issue[] searchByAuthor(String author, Comparator<Issue> comparator) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {
             if (matches3(issue, author)) {
@@ -76,6 +75,7 @@ public class IssueManager {
                 result = tmp;
             }
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 
@@ -94,18 +94,18 @@ public class IssueManager {
             HashSet<String> issueTags = issue.getTags();
 
             for (String searchTag : searchTags) {
-                if (issueTags.contains(searchTags)) {
+                if (issueTags.contains(searchTag)) {
                     filteredIssues.add(issue);
                     continue;
                 }
             }
         }
-        return filteredIssues.toArray(new Issue[0]);
+        return filteredIssues.toArray(new Issue[filteredIssues.size()]);
     }
 
 
     // Фильтрация по Assignee (на кого назначено)
-    public Issue[] searchByAssignee(String assignee) {
+    public Issue[] searchByAssignee(String assignee, Comparator<Issue> comparator) {
         Issue[] result = new Issue[0];
         for (Issue issue : repository.getAll()) {
             if (matches4(issue, assignee)) {
@@ -116,6 +116,7 @@ public class IssueManager {
                 result = tmp;
             }
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 
@@ -128,11 +129,20 @@ public class IssueManager {
 
     //Закрытие Issue по id
     public void closeIssueById(int id) {
-        int i = 0;
+        Issue closedIssues = null;
         for (Issue issue : repository.getAll()) {
             if (issue.getId() == id) {
-                issue.setOpenStatus(false);
-                i++;
+                closedIssues = issue;
+            }
+        }
+        if (closedIssues == null) {
+            throw new RuntimeException("Issue с указанным ID не существует");
+        } else {
+            for (Issue issue : repository.getAll()) {
+                if (issue.getId() == id) {
+                    issue.setOpenStatus(false);
+                    break;
+                }
             }
         }
 
@@ -140,13 +150,22 @@ public class IssueManager {
 
     // Открытие Issue по id
     public void openIssueById(int id) {
-        int i = 0;
+        Issue closedIssues = null;
         for (Issue issue : repository.getAll()) {
             if (issue.getId() == id) {
-                issue.setOpenStatus(true);
-                i++;
+                closedIssues = issue;
             }
+        }
+        if (closedIssues == null) {
+            throw new RuntimeException("Issue c указанным ID не существует");
+        } else {
+            for (Issue issue : repository.getAll()) {
+                if (issue.getId() == id) {
+                    issue.setOpenStatus(true);
+                    break;
+                }
 
+            }
         }
     }
 
@@ -157,13 +176,7 @@ public class IssueManager {
         repository.add(issue);
     }
 
-    // 2.Просмотр - cRud
-    // 2.1. Возвращает элемент, соответсвующий указанному индексу
-    public Issue[] get(int index) {
-        return repository.get(index);
-    }
-
-    //2.2. Возвращает все элементы
+    // 2.Просмотр - cRud - Возвращает все элементы
     public Issue[] getAll() {
         return repository.getAll();
     }
